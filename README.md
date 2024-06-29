@@ -39,7 +39,9 @@
 ![` 8}9{$AO~Q5S1P$G3 PU4X](https://github.com/TheValkyrja/Anthropic2Vertex/assets/45366459/572b3e46-47ac-4201-a320-1fbfeacc3e93)
 
 6.浏览器将会自动下载一个密钥文件，你不需要编辑它，只需要妥善保存。
-### 请妥善保管此文件！！
+
+**请像保护密码一样妥善保管此文件！！**
+
 一旦遗失，无法重新下载，泄露将产生严重安全问题。
 </details>
 
