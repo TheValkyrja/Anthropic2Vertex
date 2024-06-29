@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  proxy-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT:-5000}:${PORT:-5000}"
+    volumes:
+      - ./auth:/app/auth
+      - ./.env:/app/.env
+      - ./model_mapping.json:/app/model_mapping.json
+    env_file:
+      - .env
+    environment:
+      - HOST=${HOST:-0.0.0.0}
+    restart: unless-stopped
+
+volumes:
+  auth:
