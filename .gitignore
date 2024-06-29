@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.env
+*.log
+build/
+dist/
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+/auth/auth.json
