@@ -83,6 +83,8 @@ PROJECT ID可以在GCP首页找到，设置为你自己的ProjectID.
   1. 需要docker环境  
   2. docker框架与镜像总占用空间偏大。
 
+不包括docker框架，本应用镜像文件约占47.2MB（于Ubuntu22.04上本地构建）
+
 1.根据你的平台安装对应docker和docker compose  
 
 2.导航至文件夹  
