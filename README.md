@@ -54,9 +54,7 @@
 
   ```
   wget --no-check-certificate --content-disposition https://github.com/TheValkyrja/Anthropic2Vertex/releases/download/0.1.0/Anthropic2Vertex-0.1.0.zip
-
-  #解压文件
-  sudo apt-get install zip | unzip Anthropic2Vertex-0.1.0.zip Anthropic2Vertex-0.1.0
+  sudo apt-get install zip | unzip Anthropic2Vertex-0.1.0.zip -d Anthropic2Vertex-0.1.0
   ```
 
 **For Windows:**  
