@@ -45,20 +45,36 @@
 一旦遗失，无法重新下载，泄露将产生严重安全问题。
 </details>
 
-##### 2.下载和配置文件。  
+##### 2.下载、解压文件。  
 
 <details> 
   <summary>点击展开</summary>
   
-For Linux：
-  ```
-  git clone https://github.com/TheValkyrja/Anthropic2Vertex.git\
-  ```  
-For Windows:  
-下载并解压zip源码或release。
+**For Linux：**
 
-打开文件夹。  
+  ```
+  wget --no-check-certificate --content-disposition https://github.com/TheValkyrja/Anthropic2Vertex/releases/download/0.1.0/Anthropic2Vertex-0.1.0.zip
+
+  #解压文件
+  sudo apt-get install zip | unzip Anthropic2Vertex-0.1.0.zip Anthropic2Vertex-0.1.0
+  ```
+
+**For Windows:**  
+
+前往[Release](https://github.com/TheValkyrja/Anthropic2Vertex/releases),下载[Anthropic2Vertex-0.1.0.zip](https://github.com/TheValkyrja/Anthropic2Vertex/releases/download/0.1.0/Anthropic2Vertex-0.1.0.zip)  
+并解压文件。
+
+</details>
+
+##### 3.配置文件。  
+
+<details>
+  <summary>点击展开</summary>
+
+导航至解压的文件夹。  
+
 重命名.env.example为.env，并使用文本编辑器编辑.env文件：
+
 将端口，监听地址修改为你的服务器监听地址（默认127.0.0.1:5000）  
 并依照需求设置密码（为空即不认证，慎选）。
 
@@ -71,7 +87,7 @@ PROJECT ID可以在GCP首页找到，设置为你自己的ProjectID.
 
 </details>
 
-##### 3.安装并启动
+##### 4.安装并启动
 
 <details>
   <summary>从Docker部署启动(推荐)</summary>
@@ -85,19 +101,22 @@ PROJECT ID可以在GCP首页找到，设置为你自己的ProjectID.
   1. 需要docker环境  
   2. docker框架与镜像总占用空间偏大。
 
-不包括docker框架，本应用镜像文件约占47.2MB（于Ubuntu22.04上本地构建）
+不包括docker框架，本应用镜像文件约占47.2MB（于Ubuntu22.04上本地构建）。
 
-1.根据你的平台安装对应docker和docker compose  
+1. 根据你的平台安装对应docker和docker compose
 
-2.导航至文件夹  
+2. 导航至文件夹
 
-3.运行
-```
-docker compose up --build -d
-```
-这一指令会在后台将服务运行于你前面设置的地址和端口（默认127.0.0.1:5000）
-以酒馆为例，若你的服务与酒馆运行于同一主机，在代理服务器填入http://127.0.0.1:5000/v1  
-并将Claude API Key（注意不是密码）设置为你配置中的密码并测试连接。 
+3. 启动应用
+   运行
+   ```
+   docker compose up -d
+   ```
+   启动应用。
+
+   这一指令会在后台将服务运行于你前面设置的地址和端口（默认127.0.0.1:5000）
+   以酒馆为例，若你的服务与酒馆运行于同一主机，在代理服务器填入http://127.0.0.1:5000/v1  
+   并将Claude API Key（注意不是密码）设置为你配置中的密码并测试连接。
 
 安装完成，开始使用。
 
@@ -107,6 +126,49 @@ docker compose down
 docker compose up -d
 ```
 重新加载配置。
+
+4. （可选）删除目录下main与main.exe文件进一步节省空间。  
+   注：照做这步后将无法使用二进制文件启动。确保你知道你在做什么，否则请无视。
+
+</details>
+
+<details>
+  
+  <summary>直接运行可执行文件（无需前置依赖）</summary>
+  
+  本方法的优点：  
+  1. 无需（也非常不便于）管理任何依赖  
+  2. 综合运行体积最优  
+  3. 配置运行流程简单  
+
+  本方法的缺点：
+  1. 系统兼容性较差（旧版系统可能无法运行）。
+  2. 打包应用封闭，内容不透明  
+  3. 几乎不存在可调试空间
+
+二进制文件编译于 Debian GNU/Linux 11 (bullseye)与Windows 10 专业版	22H2。任何比这两者更旧或GLIBC不兼容的系统均不保证正常运行。已于Ubuntu22.04进行测试。
+
+**二进制文件内容不透明，因此对你的系统存在安全性风险。  
+*USE AT YOUR OWN RISKS***
+
+Pyinstaller SPEC打包文件已提供于源码中。
+
+1. 导航至文件目录。  
+
+2. 启动应用。
+      
+   For Windows：  
+
+   运行main.exe文件启动应用。
+   
+   For Linux：
+   ```
+   #赋予文件运行权限
+   chmod +x main
+   ./main
+   ```
+
+使用方式同上。
 
 </details>
 
@@ -124,7 +186,7 @@ docker compose up -d
   2. python依赖与运行库可能占用空间较大。
   3. 对于不同系统兼容性不定。
 
-**如果你看不懂这些内容在说什么，请返回尝试学习Docker安装方法！**
+**如果你看不懂这些内容在说什么，请返回尝试前两种运行方法！**
 
 1. 确保你的系统已经安装了python3与pip3包管理器  
 以Ubuntu为例：  
@@ -145,43 +207,9 @@ pip install -r requirements.txt
 python3 main.py
 ```
 
+4. 删除目录下main与main.exe文件进一步节省空间。  
+注：照做这步后将无法使用二进制文件启动。确保你知道你在做什么，否则请无视。
+
 应用将会监听于.env文件中设置的对应地址与端口，使用方式与docker运行一样。
-
-</details>
-
-<details>
-  
-  <summary>直接运行使用pyinstaller打包的二进制文件</summary>
-  
-  本方法的优点：  
-  1. 无需（也非常不便于）管理任何依赖  
-  2. 综合运行体积最优  
-  3. 配置运行流程简单  
-
-  本方法的缺点：
-  1. 系统兼容性相当有限（仅适用于部分Linux系统）。
-  2. 打包应用封闭，具体内容不透明  
-  3. 几乎不存在可调试空间
-
-二进制文件编译于 Debian GNU/Linux 11 (bullseye)。任何不使用GLIBC或使用比该发行版的GLIBC版本更旧的系统均不保证正常运行。已于Ubuntu22.04进行测试。
-
-**二进制文件内容不透明，因此对你的系统存在安全性风险。  
-*USE AT YOUR OWN RISKS***
-
-SPEC打包文件已提供于源码中。
-
-1. 导航至文件目录。  
-
-2. 赋予二进制文件运行权限。  
-   ```
-   chmod +x main
-   ```
-
-4. 运行。  
-   ```
-   ./main
-   ```
-
-使用方式同上。
 
 </details>
