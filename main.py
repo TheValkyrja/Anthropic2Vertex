@@ -5,12 +5,13 @@ import sys
 import json
 import time
 import subprocess
+import colorama
 import pkg_resources
 import importlib.util
 
 def check_requirements():
     if getattr(sys, 'frozen', False):
-        print("跳过依赖项检查。")
+        print("从可执行文件启动，跳过依赖项检查。")
         return True
     print("检查依赖项...")
     requirements_file = "requirements.txt"
@@ -129,11 +130,11 @@ def load_proxy_server():
 
 def main():
     if not check_requirements():
-        print("依赖项未满足。请安装后重启。")
+        input("依赖项未满足。请安装后重启。")
         sys.exit(1)
         
     if not check_directory_structure():
-        print("目录必要文件验证失败，取消启动。")
+        input("目录必要文件验证失败，取消启动。")
         sys.exit(1)
     
     print("目录文件验证成功。")
@@ -142,6 +143,7 @@ def main():
     # 启动 proxy_server.py
 #    time.sleep(0.5)
     print("启动服务器...")
+    colorama.init()
     proxy_server = load_proxy_server()
 
     import uvicorn
@@ -152,4 +154,5 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         print("\nProgram interrupted by user. Exiting...")
+        time.sleep(1)
         sys.exit(0)

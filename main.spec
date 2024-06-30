@@ -1,5 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+import os
 block_cipher = None
 
 a = Analysis(
@@ -10,6 +11,7 @@ a = Analysis(
     hiddenimports=[
         'pkg_resources',
         'importlib',
+        'colorama',
         'anthropic',
         'dotenv',
         'fastapi',
@@ -49,6 +51,7 @@ exe = EXE(
     a.datas,
     [],
     name='main',
+    icon='ClaudeVertex.ico' if os.path.exists('ClaudeVertex.ico') else None,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
