@@ -55,6 +55,8 @@
   ```
   wget --no-check-certificate --content-disposition https://github.com/TheValkyrja/Anthropic2Vertex/releases/latest/download/Anthropic2Vertex.zip
   sudo apt-get install zip -y && unzip Anthropic2Vertex.zip -d Anthropic2Vertex
+  ```
+  ```
   sudo rm -rf Anthropic2Vertex.zip #可选
   ```
 
