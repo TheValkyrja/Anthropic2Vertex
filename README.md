@@ -54,7 +54,7 @@
 
   ```
   wget --no-check-certificate --content-disposition "https://github.com/TheValkyrja/Anthropic2Vertex/releases/latest/download/Anthropic2Vertex-linux-$(uname -m).tar.gz"
-  mkdir -p Anthropic2Vertex && tar -xzvf Anthropic2Vertex-linux-$(uname -m).tar.gz -C Anthropic2Vertex
+  tar -xzvf Anthropic2Vertex-linux-$(uname -m).tar.gz
   ```
   ```
   sudo rm -rf Anthropic2Vertex-linux-$(uname -m).tar.gz #删除压缩包，可选
