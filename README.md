@@ -57,7 +57,7 @@
   mkdir -p Anthropic2Vertex && tar -xzvf Anthropic2Vertex-linux-$(uname -m).tar.gz -C Anthropic2Vertex
   ```
   ```
-  sudo rm -rf Anthropic2Vertex.zip #可选
+  sudo rm -rf Anthropic2Vertex-linux-$(uname -m).tar.gz #删除压缩包，可选
   ```
 
 **For Windows:**  
