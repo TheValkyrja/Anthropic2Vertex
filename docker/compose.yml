@@ -1,0 +1,12 @@
+services:
+  a2v:
+    build: .
+    container_name: a2v
+    ports:
+      - 5000:5000
+    volumes:
+      - ./.env:/app/.env
+      - ./auth.json:/app/auth/auth.json
+      - ./model_mapping.json:/app/model_mapping.json
+    command: python main.py
+    restart: unless-stopped

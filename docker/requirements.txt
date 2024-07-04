@@ -1,0 +1,7 @@
+colorama
+google-cloud-aiplatform>=1.35.0
+anthropic>=0.5.0
+python-dotenv>=1.0.0
+fastapi>=0.104.1
+pydantic>=2.4.2
+uvicorn>=0.24.0
