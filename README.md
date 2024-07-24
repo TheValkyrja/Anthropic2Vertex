@@ -1,3 +1,8 @@
+#转移提示
+
+由于官方SDK封装的数据处理以及本人的能力有限，在官方SDK上进行的数据转发和硬编码处理实在不太优雅，因此本项目暂且不再更新，直到我进一步学会更好的写法。
+目前本项目的所有核心功能和新功能都将在不改变所有原有功能和用法的情况下转向本人新项目，使用原生http实现，对于从Python启动应用的用户可无缝转移。
+
 # Anthropic2Vertex
 使用官方SDK实现的将标准Anthropic Claude请求转发至VertexAI Claude的代理服务器应用，使用Fastapi。
 支持Claude 3.5 sonnet, Claude 3 Opus/Sonnet/Haiku on Vertex AI
