@@ -9,6 +9,8 @@ import colorama
 import pkg_resources
 import importlib.util
 
+colorama.init()
+
 def check_requirements():
     if getattr(sys, 'frozen', False):
         print("从可执行文件启动，跳过依赖项检查。")
@@ -57,7 +59,7 @@ def get_base_path():
         return os.path.dirname(os.path.abspath(__file__))
 
 
-def check_directory_structure():
+def check_directory_structure(project_ids: str):
     # 检查当前目录
     app_base_dir = get_base_path()
     
@@ -71,10 +73,26 @@ def check_directory_structure():
     
     # 检查 auth.json 文件
     print(f"检查 auth.json 文件..")
-    auth_file = os.path.join(auth_dir, 'auth.json')
-    if not os.path.exists(auth_file):
-        print(f"错误: {auth_dir}下'auth.json'谷歌验证文件缺失！")
-        return False
+    default_auth_file = os.path.join(auth_dir, 'auth.json')
+    
+    if os.path.exists(default_auth_file):
+        print(f"检测到 auth.json 文件存在，使用单项目：{project_ids[0]}。")
+    else:
+        print(f"未检测到 auth.json 文件，检查账号配置...")
+        
+        missing_files = []
+        for project_id in project_ids:
+            project_auth_file = os.path.join(auth_dir, f"{project_id}.json")
+            if not os.path.exists(project_auth_file):
+                missing_files.append(f"{project_id}.json")
+        
+        if missing_files:
+            print(colorama.Back.RED + colorama.Fore.WHITE + f"警告:未检测到以下项目验证文件:")
+            for file in missing_files:
+                print(f" - {file}")
+            input(colorama.Style.RESET_ALL + "按Ctrl+C退出或按回车键忽略...")
+        else:
+            print(f"多账号模式配置检查通过。")
     time.sleep(0.1)
     
     # 检查 .env 文件
@@ -105,17 +123,6 @@ def check_directory_structure():
     
     return True
 
-def manage_gcp_auth():
-    # 检查是否有激活的服务账号
-    check_cmd = "gcloud auth list --filter=status:ACTIVE --format='value(account)' | grep -q '@.*\\.iam\\.gserviceaccount\\.com'"
-    if subprocess.run(check_cmd, shell=True).returncode == 0:
-        print("GCP 服务账号已激活。")
-    else:
-        print("激活 GCP 服务账号...")
-        key_file = os.path.join('auth', 'service-account-key.json')
-        activate_cmd = f"gcloud auth activate-service-account --key-file={key_file}"
-        subprocess.run(activate_cmd, shell=True, check=True)
-
 def load_proxy_server():
     if getattr(sys, 'frozen', False):
         module_path = os.path.join(sys._MEIPASS, 'proxy_server.py')
@@ -129,22 +136,21 @@ def load_proxy_server():
 
 
 def main():
+    proxy_server = load_proxy_server()
     if not check_requirements():
         input("依赖项未满足。请安装后重启。")
         sys.exit(1)
         
-    if not check_directory_structure():
+    if not check_directory_structure(proxy_server.project_ids):
         input("目录必要文件验证失败，取消启动。")
         sys.exit(1)
     
     print("目录文件验证成功。")
-#    manage_gcp_auth()
     
     # 启动 proxy_server.py
 #    time.sleep(0.5)
     print("启动服务器...")
-    colorama.init()
-    proxy_server = load_proxy_server()
+    print(f"DEBUG mode: {proxy_server.debug_mode}")
 
     import uvicorn
     uvicorn.run(proxy_server.app, host=proxy_server.hostaddr, port=proxy_server.lsnport)
