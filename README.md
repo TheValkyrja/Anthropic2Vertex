@@ -225,7 +225,7 @@ python3 main.py
 
 </details>
 
-##### 4.进阶配置（多项目负载均衡、控制台输出）
+##### 5.进阶配置（多项目负载均衡、控制台输出）
 
 <details> 
   <summary>点击展开</summary>
