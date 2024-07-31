@@ -216,6 +216,7 @@ pip install -r requirements.txt
 ```
 python3 main.py
 ```
+注：对于windows，你可能希望使用```python```替代```python3```。
 
 4. 删除目录下main与main.exe文件进一步节省空间。  
 注：照做这步后将无法使用二进制文件启动。确保你知道你在做什么，否则请无视。
